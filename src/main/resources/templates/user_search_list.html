@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${sectionName}"></title>
+    <head th:insert="~{import :: head}"></head>
+</head>
+<body>
+<div th:insert="~{navigation :: nav}"></div>
+<div class="container-fluid main profile">
+    <div class="row">
+        <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+            <h2>搜索结果</h2>
+            <div class="media" th:each="user : ${userList}">
+                <div class="media-left" th:if="user != null">
+                    <a th:href="@{'/profile/findByUser/'+${user.id}}">
+                        <img class="media-object img-rounded" style="height: 100px;
+    width: 100px;"
+                             th:src="${user.avatarUrl}">
+                    </a>
+                    <span class="glyphicon" th:text="${user.name}" style="font-size: 25px;"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 ">
+            <div>
+                <a href="#">
+                    <img class="thumbnail"
+                         th:src="${session.user.avatarUrl}">
+                </a>
+                <h1>
+                    <span th:text="${session.user.getName()}"></span>
+                </h1>
+                <h3 th:if="${session.user.bio!= null}">
+                    <span th:text="${session.user.bio}"></span>
+                </h3>
+                <div class="">
+                    <button type="button" class="btn btn-default modify-profile">
+                        <a href="/profile/modify">修改个人信息</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{footer :: foot}"></div>
+</body>
+</html>
